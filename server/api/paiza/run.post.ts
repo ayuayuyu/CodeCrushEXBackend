@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
       method: 'POST',
       body: body, // リクエストボディをそのまま送信
     });
-    console.log(`response_run:  ${response}`);
+    console.log(`response_run:  ${JSON.stringify(response)}`);
     return response; // JSONレスポンスを返す
   } catch (error) {
     throw createError({ statusCode: 500, statusMessage: String(error) });

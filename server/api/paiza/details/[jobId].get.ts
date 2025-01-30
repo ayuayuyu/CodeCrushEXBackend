@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
       method: 'GET',
       params: { id: jobId, api_key: 'guest' },
     });
-    console.log(`response_job_id: ${response}`);
+    console.log(`response_jobId:  ${JSON.stringify(response)}`);
     return response;
   } catch (error) {
     throw createError({ statusCode: 500, statusMessage: String(error) });
