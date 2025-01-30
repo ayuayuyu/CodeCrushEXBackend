@@ -1,5 +1,6 @@
 //player1 player2両方からリクエストが来た時に送られてきたステータス番号を使ってステータスを取得してステータスをアップデートする
 import { statusManagement } from '~/utils/statusManagement';
+import { getStatus, updateStatus } from '#imports';
 
 export default defineEventHandler(async (event) => {
   try {
@@ -25,6 +26,10 @@ export default defineEventHandler(async (event) => {
       console.log(
         `Player1: ${statusManagement[watchword][1]}, Player2: ${statusManagement[watchword][2]}次のステータスに変更します。`,
       );
+      const status = getStatus(body.status);
+      console.log(`getStatus: ${status}`);
+      //ステータスの更新
+      updateStatus(watchword, status);
 
       // 必要に応じてレスポンスを返す
       return { message: "Both players' statuses received", gameStatus: statusManagement[watchword] };

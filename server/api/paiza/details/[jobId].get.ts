@@ -2,7 +2,7 @@ export default defineEventHandler(async (event) => {
   const apiUrl: string = 'https://api.paiza.io/runners/get_details';
   try {
     //watchwordを取得
-    const jobId = getRouterParam(event, 'job_id');
+    const jobId = getRouterParam(event, 'jobId');
     //違う場合
     if (!jobId) {
       throw new Error('job_id parameter is missing');
