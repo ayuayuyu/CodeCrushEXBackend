@@ -1,12 +1,12 @@
-import { statusDataEvents } from "~/utils/updateStatus";
-import { destr,safeDestr } from "destr";
+import { statusDataEvents } from '~/utils/updateStatus';
+import { destr, safeDestr } from 'destr';
 
 export default defineEventHandler(async (event) => {
   const eventStream = createEventStream(event);
-  const watchword = getRouterParam(event, "watchword");
+  const watchword = getRouterParam(event, 'watchword');
 
   if (!watchword) {
-    throw createError({ statusCode: 400, message: "Watchword is required" });
+    throw createError({ statusCode: 400, message: 'Watchword is required' });
   }
   // `sharedData.status` の変更を監視
   statusDataEvents.on(watchword, async (newStatus) => {

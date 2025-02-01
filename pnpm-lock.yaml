@@ -14,12 +14,12 @@ importers:
       destr:
         specifier: ^2.0.3
         version: 2.0.3
+      diff-match-patch-ts:
+        specifier: ^0.6.0
+        version: 0.6.0
       nanoid:
         specifier: ^5.0.9
         version: 5.0.9
-      prettier:
-        specifier: ^3.4.2
-        version: 3.4.2
       uuid:
         specifier: ^11.0.5
         version: 11.0.5
@@ -30,6 +30,9 @@ importers:
       nitropack:
         specifier: latest
         version: 2.10.4(better-sqlite3@11.8.1)(typescript@5.7.3)
+      prettier:
+        specifier: ^3.4.2
+        version: 3.4.2
 
 packages:
 
@@ -917,6 +920,9 @@ packages:
   detect-libc@2.0.3:
     resolution: {integrity: sha512-bwy0MGW55bG41VqxxypOsdSdGqLwXPI/focwgTYCFMbdUiBAxLg9CFzG08sz2aqzknwiX7Hkl0bQENjg8iLByw==}
     engines: {node: '>=8'}
+
+  diff-match-patch-ts@0.6.0:
+    resolution: {integrity: sha512-U0uPIJ+wJqgaBoVw2MFSFpGIk7q3mJJ+/sehbxDZFv4Gx6a1GOmrsSLmxVDDrGtRL4Q9de084aa5lVpCHn+eUw==}
 
   dot-prop@9.0.0:
     resolution: {integrity: sha512-1gxPBJpI/pcjQhKgIU91II6Wkay+dLcN3M6rf2uwP8hRur3HtQXjVrdAK3sjC0piaEuxzMwjXChcETiJl47lAQ==}
@@ -2815,6 +2821,8 @@ snapshots:
   detect-libc@1.0.3: {}
 
   detect-libc@2.0.3: {}
+
+  diff-match-patch-ts@0.6.0: {}
 
   dot-prop@9.0.0:
     dependencies:

@@ -8,13 +8,14 @@
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.12",
-    "nitropack": "latest"
+    "nitropack": "latest",
+    "prettier": "^3.4.2"
   },
   "dependencies": {
     "better-sqlite3": "^11.8.1",
     "destr": "^2.0.3",
+    "diff-match-patch-ts": "^0.6.0",
     "nanoid": "^5.0.9",
-    "prettier": "^3.4.2",
     "uuid": "^11.0.5"
   }
 }
