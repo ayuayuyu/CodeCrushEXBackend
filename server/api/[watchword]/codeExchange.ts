@@ -1,18 +1,45 @@
+import { codeManagement } from '~/utils/codeManagement';
+import { getCodeChange } from '~/utils/getCodeChange';
 import diffCode from '~/utils/diffCode';
 
-const oldCode = 'asdfsadfdsfdsfddffdsfafdsfdsfddsdsd';
-
-const newCode = 'fsdfsadfdsfdsfdsfdsfdsfdsfdsafdsfds';
+const oldCode = 'fsdfsadfdsfdsfdsfdsfdsfdsfdsafdsfds';
 
 // 変更したコードを受け取って交換するエンドポイント(newCodeを受け取る)
 
 export default defineEventHandler(async (event) => {
   try {
+    const watchword = getRouterParam(event, 'watchword');
     const body = await readBody<{ player: string; code: string }>(event);
+    const player = body.player;
+    const code = body.code;
+
+    if (!body || typeof player !== 'string' || typeof code !== 'string') {
+      throw createError({ statusCode: 400, statusMessage: 'Invalid request body' });
+    }
+
+    if (!codeManagement[watchword]) {
+      codeManagement[watchword] = {};
+    }
+
+    codeManagement[watchword][player] = code;
+
+    codeDB.prepare(`UPDATE codeManagement SET ${player} = ? WHERE watchword = ?`).run(code, watchword);
+
+    if (
+      codeManagement[watchword]['player1'] !== undefined &&
+      codeManagement[watchword]['player2'] !== undefined
+    ) {
+      console.log(
+        `Player1: ${codeManagement[watchword][1]}, Player2: ${codeManagement[watchword][2]}次のステータスに変更します。`,
+      );
+      const player1 = diffCode(oldCode, codeManagement[watchword][1]);
+      const player2 = diffCode(oldCode, codeManagement[watchword][2]);
+      //これをreturn { diff: changeCode };で送るようなsse通信のやつを書く
+      getCodeChange(watchword, player1, player2);
+    }
 
     //それぞれプレイヤーから受け取ったら差分を出したコードをsse通信で送る
-    const changeCode = diffCode(oldCode, newCode);
-    return { diff: changeCode };
+    // return { diff: changeCode };
   } catch (error) {
     // エラー処理
     return {
@@ -20,26 +47,3 @@ export default defineEventHandler(async (event) => {
     };
   }
 });
-// const oldCode =
-//   '#include <stdio.h>\
-//   int main() {\
-//   // メッセージを出力\
-//   printf("Hello, World!");\
-//   printf("簡単なC言語プログラムです");\
-//   //変数を宣言して値を出力\
-//   int number = 42;\
-//   printf("数値: %d", number);\
-//   return 0;\
-//   }';
-// const newCode =
-//   '#include <stdio.h>\
-//   int main() {\
-//   // メッセージを出力\
-//   printf("Hello, World!");\
-//   printf("簡単なC言語プログラムです");\
-//   \
-//   //変数を宣言して値を出力\
-//   int number = ;\
-//   printf("数値: %d", );\
-//   return 0;\
-//   }';

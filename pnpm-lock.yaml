@@ -20,6 +20,9 @@ importers:
       nanoid:
         specifier: ^5.0.9
         version: 5.0.9
+      typescript:
+        specifier: ^5.7.3
+        version: 5.7.3
       uuid:
         specifier: ^11.0.5
         version: 11.0.5

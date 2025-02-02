@@ -1,5 +1,5 @@
 import { statusDataEvents } from '~/utils/updateStatus';
-import { destr, safeDestr } from 'destr';
+import { destr } from 'destr';
 
 export default defineEventHandler(async (event) => {
   const eventStream = createEventStream(event);

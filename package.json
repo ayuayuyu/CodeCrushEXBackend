@@ -16,6 +16,7 @@
     "destr": "^2.0.3",
     "diff-match-patch-ts": "^0.6.0",
     "nanoid": "^5.0.9",
+    "typescript": "^5.7.3",
     "uuid": "^11.0.5"
   }
 }

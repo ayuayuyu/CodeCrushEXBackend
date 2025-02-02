@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
     const statusNumber = body.status;
     console.log(`getPlayer: ${player}`);
 
-    if (!body || typeof player !== 'string' || typeof body.status !== 'number') {
+    if (!body || typeof player !== 'string' || typeof statusNumber !== 'number') {
       throw createError({ statusCode: 400, statusMessage: 'Invalid request body' });
     }
 
@@ -21,6 +21,9 @@ export default defineEventHandler(async (event) => {
 
     // プレイヤーのステータスを更新
     statusManagement[watchword][player] = statusNumber;
+    statusDB
+      .prepare(`UPDATE statusManage SET ${player} = ? WHERE watchword = ?`)
+      .run(statusNumber, watchword);
 
     // 両プレイヤーのステータスが揃ったか確認
     if (
