@@ -1,40 +1,45 @@
-import Database from "better-sqlite3";
+import Database from 'better-sqlite3';
 
 // SQLite データベースを初期化
-const db = new Database("deta.db");
+export const db = new Database('watchword.db');
+export const statusDB = new Database('status.db');
+export const ansDB = new Database('codeAnswers.db');
 
-// 初回実行時にテーブルを作成
-// db.prepare(`
-//   CREATE TABLE IF NOT EXISTS watchwords (
-//     id INTEGER PRIMARY KEY AUTOINCREMENT,
-//     watchword TEXT NOT NULL
-//   )
-// `).run();
-// テーブルの作成（初回のみ実行）
-// db.prepare(`
-//   CREATE TABLE IF NOT EXISTS watchwords (
-//     id INTEGER PRIMARY KEY AUTOINCREMENT,
-//     watchword TEXT NOT NULL,
-//     player1 BOOLEAN DEFAULT 0,
-//     player2 BOOLEAN DEFAULT 0,
-//   )
-// `).run();
-db.prepare(`
+//正解判定のコードと答えと入力のデーターベース
+ansDB
+  .prepare(
+    `
   CREATE TABLE IF NOT EXISTS codeAnswers (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     code TEXT NOT NULL,
-    answer INTEGER NOT NULL
+    answer TEXT NOT NULL
   );
-`).run();
+`,
+  )
+  .run();
 
-db.prepare(`
+statusDB
+  .prepare(
+    `
+  CREATE TABLE IF NOT EXISTS statusData (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    watchword TEXT NOT NULL,
+    status TEXT NOT NULL
+  );
+`,
+  )
+  .run();
+
+//合言葉とそのルームにプレイヤーが参加しているかのデータベース
+
+db.prepare(
+  `
   CREATE TABLE IF NOT EXISTS watchwords (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     watchword TEXT NOT NULL,
+    status TEXT NOT NULL,
     player1 BOOLEAN DEFAULT 0,
     player2 BOOLEAN DEFAULT 0
   );
-`).run();
-
-
-export default db;
+`,
+).run();

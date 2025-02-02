@@ -1,4 +1,4 @@
-import db from '~/utils/db';
+import { db } from '#imports';
 import findWatchword from '~/utils/findwatchword';
 
 export default defineEventHandler(async (event) => {

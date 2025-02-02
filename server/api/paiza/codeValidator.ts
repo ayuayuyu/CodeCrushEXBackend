@@ -15,7 +15,7 @@ interface resultResponses {
   memory: number | null;
   result: string | null;
 }
-
+//もしdbに問題と答えがあるならそのidをpostで受け取ってその問題の答えと入力を受けとって正解判定をする
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
 
@@ -40,7 +40,7 @@ export default defineEventHandler(async (event) => {
       }),
     });
 
-    const jobId = response.id;
+    const jobId: string = response.id;
     console.log(`jobId: ${jobId}`);
 
     const jobApiUrl: string = 'https://api.paiza.io/runners/get_details';

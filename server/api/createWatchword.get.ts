@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { customAlphabet } from 'nanoid';
-import db from '~/utils/db';
+import { db } from '#imports';
 
 export default defineEventHandler(() => {
   try {
@@ -23,10 +23,16 @@ export default defineEventHandler(() => {
     // const stmt = db.prepare("INSERT INTO watchwords (watchword) VALUES (?)");
     // stmt.run(watchword);
     const stmt = db.prepare(`
-      INSERT INTO watchwords (watchword, player1, player2) 
-      VALUES (?, ?, ?)
+      INSERT INTO watchwords (watchword,status, player1, player2) 
+      VALUES (?, ? , ?, ?)
     `);
-    stmt.run(watchword, 0, 0);
+    stmt.run(watchword, 'watting', 0, 0);
+
+    const stmt1 = statusDB.prepare(`
+      INSERT INTO statusData (watchword,status) 
+      VALUES (?, ?)
+    `);
+    stmt1.run(watchword, 'watting');
 
     return {
       id: 'player1',
