@@ -7,6 +7,7 @@ export default defineEventHandler(async (event) => {
     const watchword = getRouterParam(event, 'watchword');
     const body = await readBody<{ player: string; status: number }>(event);
     const player = body.player;
+    const statusNumber = body.status;
     console.log(`getPlayer: ${player}`);
 
     if (!body || typeof player !== 'string' || typeof body.status !== 'number') {
@@ -19,17 +20,20 @@ export default defineEventHandler(async (event) => {
     }
 
     // プレイヤーのステータスを更新
-    statusManagement[watchword][player] = body.status;
+    statusManagement[watchword][player] = statusNumber;
 
     // 両プレイヤーのステータスが揃ったか確認
-    if (statusManagement[watchword]['player1'] !== undefined && statusManagement[watchword]['player2'] !== undefined) {
+    if (
+      statusManagement[watchword]['player1'] !== undefined &&
+      statusManagement[watchword]['player2'] !== undefined
+    ) {
       console.log(
         `Player1: ${statusManagement[watchword][1]}, Player2: ${statusManagement[watchword][2]}次のステータスに変更します。`,
       );
-      const status = getStatus(body.status);
+      const status = getStatus(statusNumber);
       console.log(`getStatus: ${status}`);
       //ステータスの更新
-      updateStatus(watchword, status);
+      updateStatus(watchword, status, statusNumber);
 
       // 必要に応じてレスポンスを返す
       return { message: "Both players' statuses received", gameStatus: statusManagement[watchword] };

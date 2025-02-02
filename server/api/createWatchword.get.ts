@@ -34,6 +34,12 @@ export default defineEventHandler(() => {
     `);
     stmt1.run(watchword, 'watting');
 
+    const stmt2 = statusDB.prepare(`
+      INSERT INTO statusManage (watchword, player1, player2) 
+      VALUES (?, ?,?)
+    `);
+    stmt2.run(watchword, 0, 0);
+
     return {
       id: 'player1',
       watchword: watchword,

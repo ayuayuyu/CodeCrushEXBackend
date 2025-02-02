@@ -11,10 +11,12 @@ export const statusData: statusWatchword = {};
 export const statusDataEvents = new EventEmitter();
 
 // `sharedData` を更新する関数
-export const updateStatus = (watchword: string, status: string) => {
+export const updateStatus = (watchword: string, status: string, statusNumber: number) => {
   statusData[watchword] = status;
   db.prepare('UPDATE watchwords SET status = ? WHERE watchword = ?').run(status, watchword);
   statusDB.prepare('UPDATE statusData  SET status = ? WHERE watchword = ?').run(status, watchword);
+  statusDB.prepare('UPDATE statusManage SET player1 = ? WHERE watchword = ?').run(statusNumber, watchword);
+  statusDB.prepare('UPDATE statusManage SET player2 = ? WHERE watchword = ?').run(statusNumber, watchword);
   statusDataEvents.emit(watchword, status); // watchword ごとに変更を通知
 };
 

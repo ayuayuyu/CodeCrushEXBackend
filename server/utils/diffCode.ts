@@ -1,5 +1,7 @@
 import { DiffMatchPatch } from 'diff-match-patch-ts';
 
+//コードの書き換えられたところを * //変更 * と追加する関数
+
 export default function diffCode(oldCode: string, newCode: string) {
   const dmp = new DiffMatchPatch();
   const diff = dmp.diff_main(oldCode, newCode);

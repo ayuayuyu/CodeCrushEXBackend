@@ -47,6 +47,8 @@ export default defineEventHandler(async (event) => {
       console.log(`watchword: ${watchword}の準備完了！`);
       //SSE通信を開始、ステータスをexplanationに変更する。
       const status = getStatus(1);
+      statusDB.prepare('UPDATE statusManage SET player1 = ? WHERE watchword = ?').run(1, watchword);
+      statusDB.prepare('UPDATE statusManage SET player2 = ? WHERE watchword = ?').run(1, watchword);
       console.log(`getStatus: ${status}`);
       //ステータスの更新
       updateStatus(watchword, status);

@@ -30,6 +30,19 @@ statusDB
   )
   .run();
 
+statusDB
+  .prepare(
+    `
+    CREATE TABLE IF NOT EXISTS statusManage (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      watchword TEXT NOT NULL,
+      player1 NUMBER NOT NULL,
+      player2 NUMBER NOT NULL
+    );
+  `,
+  )
+  .run();
+
 //合言葉とそのルームにプレイヤーが参加しているかのデータベース
 
 db.prepare(
