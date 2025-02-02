@@ -15,9 +15,9 @@ export default defineEventHandler(async (event) => {
 
   codeManagementEvents.on(watchword, async ({ player1, player2 }) => {
     if (player === 'player1') {
-      await eventStream.push(destr({ diff: player2 })); // player1 には player2 のデータを送信
+      await eventStream.push(destr({ code: player2 })); // player1 には player2 のデータを送信
     } else if (player === 'player2') {
-      await eventStream.push(destr({ diff: player1 })); // player2 には player1 のデータを送信
+      await eventStream.push(destr({ code: player1 })); // player2 には player1 のデータを送信
     }
   });
 

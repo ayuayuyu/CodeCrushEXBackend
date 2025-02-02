@@ -21,7 +21,7 @@ export const updateStatus = (watchword: string, status: string, statusNumber: nu
 };
 
 //データベースからステータスデータをロードして `statusData` に復元
-export const loadStatusDataFromDB = () => {
+const loadStatusDataFromDB = () => {
   console.log('データベースからステータスデータをロードします...');
   const rows = statusDB.prepare('SELECT watchword, status FROM statusData').all();
   for (const row of rows) {
