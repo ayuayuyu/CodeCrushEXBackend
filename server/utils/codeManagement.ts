@@ -12,7 +12,7 @@ export const codeManagementEvents = new EventEmitter();
 //プレイヤー1,2が同じステータスなのかの確認をしている
 const loadStatusDataFromDB = () => {
   console.log('データベースからステータスデータをロードします...');
-  const rows = codeDB.prepare('SELECT watchword, player1, player2 FROM codeManagement').all();
+  const rows = db.prepare('SELECT watchword, player1, player2 FROM codeManagement').all();
   for (const row of rows) {
     statusManagement[row.watchword] = {
       player1: row.player1,

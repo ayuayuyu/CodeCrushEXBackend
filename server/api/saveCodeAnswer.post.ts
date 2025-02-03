@@ -1,5 +1,3 @@
-import { ansDB } from '~/utils/db';
-
 interface Answer {
   input: string;
   expected_output: string;
@@ -19,7 +17,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // データベースに保存（JSONシリアライズ）
-    const stmt = ansDB.prepare(`
+    const stmt = db.prepare(`
       INSERT INTO CodeAnswers (code, answer) 
       VALUES (?, ?)
     `);

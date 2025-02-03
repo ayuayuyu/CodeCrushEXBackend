@@ -21,9 +21,7 @@ export default defineEventHandler(async (event) => {
 
     // プレイヤーのステータスを更新
     statusManagement[watchword][player] = statusNumber;
-    statusDB
-      .prepare(`UPDATE statusManage SET ${player} = ? WHERE watchword = ?`)
-      .run(statusNumber, watchword);
+    db.prepare(`UPDATE statusManage SET ${player} = ? WHERE watchword = ?`).run(statusNumber, watchword);
 
     // 両プレイヤーのステータスが揃ったか確認
     if (

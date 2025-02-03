@@ -9,7 +9,7 @@ export const statusManagement: statusManage = {}; // グローバルで管理
 //プレイヤー1,2が同じステータスなのかの確認をしている
 const loadStatusDataFromDB = () => {
   console.log('データベースからステータスデータをロードします...');
-  const rows = statusDB.prepare('SELECT watchword, player1, player2 FROM statusManage').all();
+  const rows = db.prepare('SELECT watchword, player1, player2 FROM statusManage').all();
   for (const row of rows) {
     statusManagement[row.watchword] = {
       player1: row.player1,

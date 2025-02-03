@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { customAlphabet } from 'nanoid';
 import { db } from '#imports';
-import { codeDB } from '~/utils/db';
 
 export default defineEventHandler(() => {
   try {
@@ -29,19 +28,19 @@ export default defineEventHandler(() => {
     `);
     stmt.run(watchword, 'watting', 0, 0);
 
-    const stmt1 = statusDB.prepare(`
+    const stmt1 = db.prepare(`
       INSERT INTO statusData (watchword,status) 
       VALUES (?, ?)
     `);
     stmt1.run(watchword, 'watting');
 
-    const stmt2 = statusDB.prepare(`
+    const stmt2 = db.prepare(`
       INSERT INTO statusManage (watchword, player1, player2) 
       VALUES (?, ?,?)
     `);
     stmt2.run(watchword, 0, 0);
 
-    const stmt3 = codeDB.prepare(`
+    const stmt3 = db.prepare(`
       INSERT INTO codeManagement (watchword, player1, player2) 
       VALUES (?, ?,?)
     `);

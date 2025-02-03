@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
 
     codeManagement[watchword][player] = code;
 
-    codeDB.prepare(`UPDATE codeManagement SET ${player} = ? WHERE watchword = ?`).run(code, watchword);
+    db.prepare(`UPDATE codeManagement SET ${player} = ? WHERE watchword = ?`).run(code, watchword);
 
     if (
       codeManagement[watchword]['player1'] !== undefined &&

@@ -2,38 +2,30 @@ import Database from 'better-sqlite3';
 
 // SQLite データベースを初期化
 export const db = new Database('watchword.db');
-export const statusDB = new Database('status.db');
-export const ansDB = new Database('codeAnswers.db');
-export const codeDB = new Database('code.db');
 
 //正解判定のコードと答えと入力のデーターベース
-ansDB
-  .prepare(
-    `
+db.prepare(
+  `
   CREATE TABLE IF NOT EXISTS codeAnswers (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     code TEXT NOT NULL,
     answer TEXT NOT NULL
   );
 `,
-  )
-  .run();
+).run();
 
-statusDB
-  .prepare(
-    `
+db.prepare(
+  `
   CREATE TABLE IF NOT EXISTS statusData (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     watchword TEXT NOT NULL,
     status TEXT NOT NULL
   );
 `,
-  )
-  .run();
+).run();
 
-statusDB
-  .prepare(
-    `
+db.prepare(
+  `
     CREATE TABLE IF NOT EXISTS statusManage (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       watchword TEXT NOT NULL,
@@ -41,13 +33,11 @@ statusDB
       player2 NUMBER NOT NULL
     );
   `,
-  )
-  .run();
+).run();
 
 //送られてきたコードの保存
-codeDB
-  .prepare(
-    `
+db.prepare(
+  `
     CREATE TABLE IF NOT EXISTS codeManagement (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       watchword TEXT NOT NULL,
@@ -55,8 +45,7 @@ codeDB
       player2 TEXT NOT NULL
     );
   `,
-  )
-  .run();
+).run();
 
 //合言葉とそのルームにプレイヤーが参加しているかのデータベース
 
