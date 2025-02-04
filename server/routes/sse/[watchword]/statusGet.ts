@@ -1,5 +1,4 @@
 import { statusDataEvents } from '~/utils/updateStatus';
-import { destr } from 'destr';
 
 export default defineEventHandler(async (event) => {
   const eventStream = createEventStream(event);
@@ -10,7 +9,7 @@ export default defineEventHandler(async (event) => {
   }
   // `sharedData.status` の変更を監視
   statusDataEvents.on(watchword, async (newStatus) => {
-    await eventStream.push(destr({ status: newStatus }));
+    await eventStream.push(newStatus);
   });
 
   // クライアントが接続を閉じたときの処理

@@ -3,7 +3,8 @@ import { getCodeChange } from '~/utils/getCodeChange';
 import diffCode from '~/utils/diffCode';
 import { Database } from '~/utils/db';
 
-const oldCode = 'fsdfsadfdsfdsfdsfdsfdsfdsfdsafdsfds';
+const oldCode =
+  '#include <stdio.h>\nint main() {// メッセージを出力printf("Hello, World!\\n");\n return 0;\n}';
 
 // 変更したコードを受け取って交換するエンドポイント(newCodeを受け取る)
 
