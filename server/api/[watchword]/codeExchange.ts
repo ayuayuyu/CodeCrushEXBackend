@@ -16,6 +16,7 @@ export default defineEventHandler(async (event) => {
     const body = await readBody<{ player: string; code: string }>(event);
     const player = body.player;
     const code = body.code;
+    console.log(`codeはこれだよ!: ${code}`);
 
     if (!body || typeof player !== 'string' || typeof code !== 'string') {
       throw createError({ statusCode: 400, statusMessage: 'Invalid request body' });
@@ -34,16 +35,19 @@ export default defineEventHandler(async (event) => {
       codeManagement[watchword]['player2'] !== undefined
     ) {
       console.log(
-        `Player1: ${codeManagement[watchword][1]}, Player2: ${codeManagement[watchword][2]}次のステータスに変更します。`,
+        `Player1: ${codeManagement[watchword]['player1']}, Player2: ${codeManagement[watchword]['player2']}次のステータスに変更します。`,
       );
-      const player1 = diffCode(oldCode, codeManagement[watchword][1]);
-      const player2 = diffCode(oldCode, codeManagement[watchword][2]);
+      const player1 = diffCode(oldCode, codeManagement[watchword]['player1']);
+      const player2 = diffCode(oldCode, codeManagement[watchword]['player2']);
+      console.log(`player1: ${player1}`);
+      console.log(`player2: ${player2}`);
       //これをreturn { diff: changeCode };で送るようなsse通信のやつを書く
       getCodeChange(watchword, player1, player2, event);
     }
 
     //それぞれプレイヤーから受け取ったら差分を出したコードをsse通信で送る
-    // return { diff: changeCode };
+    console.log(code);
+    return { sendCode: code };
   } catch (error) {
     // エラー処理
     return {

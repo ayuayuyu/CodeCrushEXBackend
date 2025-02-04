@@ -1,6 +1,5 @@
 //それぞれのプレイヤーから受け取ったコードを交換するエンドポイント
 
-import { codeManagementEvents } from './codeManagement';
 import { Database } from './db';
 
 export const getCodeChange = async (watchword: string, player1: string, player2: string, event) => {

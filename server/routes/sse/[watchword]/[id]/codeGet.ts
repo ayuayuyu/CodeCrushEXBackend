@@ -5,19 +5,31 @@ import destr from 'destr';
 export default defineEventHandler(async (event) => {
   const eventStream = createEventStream(event);
   const watchword = getRouterParam(event, 'watchword');
-  const player = getRouterParam(event, 'id');
+  const id = getRouterParam(event, 'id');
   if (!watchword) {
     throw createError({ statusCode: 400, message: 'Watchword is required' });
   }
-  if (!player) {
+  if (!id) {
     throw createError({ statusCode: 400, message: 'id is required' });
   }
 
   const interval = setInterval(async () => {
-    if (player === 'player1') {
-      await eventStream.push(codeManagement[watchword]['player2']); // player1 には player2 のデータを送信
-    } else if (player === 'player2') {
-      await eventStream.push(codeManagement[watchword]['player1']); // player2 には player1 のデータを送信
+    if (!codeManagement[watchword]) {
+      console.error(`No data found for watchword: ${watchword}`);
+      return;
+    }
+
+    if (id === 'player1') {
+      const data = codeManagement[watchword]['player2'];
+      console.log(`data1:${data}`);
+      if (data) {
+        await eventStream.push(data);
+      }
+    } else if (id === 'player2') {
+      const data = codeManagement[watchword]['player1'];
+      if (data) {
+        await eventStream.push(data);
+      }
     }
   }, 1000);
 
