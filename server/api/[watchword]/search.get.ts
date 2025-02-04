@@ -1,8 +1,10 @@
-import { db } from '#imports';
 import findWatchword from '~/utils/findwatchword';
+import { Database } from '~/utils/db';
 
 export default defineEventHandler(async (event) => {
   try {
+    const { cloudflare } = event.context;
+    const db = new Database(cloudflare.env.DB);
     //watchwordを取得
     const watchword = getRouterParam(event, 'watchword');
     //違う場合
@@ -11,8 +13,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // データベースからすべてのデータを取得
-    const stmt = db.prepare('SELECT * FROM watchwords');
-    const watchwords = stmt.all();
+    const watchwords = await db.getWatchwords();
 
     // Watchword を検索
     const search = findWatchword(watchwords, watchword);

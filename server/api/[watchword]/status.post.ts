@@ -1,9 +1,12 @@
 //player1 player2両方からリクエストが来た時に送られてきたステータス番号を使ってステータスを取得してステータスをアップデートする
 import { statusManagement } from '~/utils/statusManagement';
 import { getStatus, updateStatus } from '#imports';
+import { Database } from '~/utils/db';
 
 export default defineEventHandler(async (event) => {
   try {
+    const { cloudflare } = event.context;
+    const db = new Database(cloudflare.env.DB);
     const watchword = getRouterParam(event, 'watchword');
     const body = await readBody<{ player: string; status: number }>(event);
     const player = body.player;
@@ -21,7 +24,7 @@ export default defineEventHandler(async (event) => {
 
     // プレイヤーのステータスを更新
     statusManagement[watchword][player] = statusNumber;
-    db.prepare(`UPDATE statusManage SET ${player} = ? WHERE watchword = ?`).run(statusNumber, watchword);
+    await db.updateStatusManage(watchword, statusNumber, player);
 
     // 両プレイヤーのステータスが揃ったか確認
     if (
@@ -34,7 +37,7 @@ export default defineEventHandler(async (event) => {
       const status = getStatus(statusNumber);
       console.log(`getStatus: ${status}`);
       //ステータスの更新
-      updateStatus(watchword, status, statusNumber);
+      updateStatus(watchword, status, statusNumber, event);
 
       // 必要に応じてレスポンスを返す
       return { message: "Both players' statuses received", gameStatus: statusManagement[watchword] };

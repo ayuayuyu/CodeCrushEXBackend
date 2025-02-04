@@ -20,7 +20,9 @@ pnpm i nanoid
 pnpm install better-sqlite3
 pnpm install --save-dev @types/better-sqlite3
 ```
-
+```bash
+pnpm i -D wrangler
+```
 **起動**
 
 ```bash

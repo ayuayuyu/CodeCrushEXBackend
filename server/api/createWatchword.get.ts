@@ -1,9 +1,11 @@
-import { v4 as uuidv4 } from 'uuid';
 import { customAlphabet } from 'nanoid';
-import { db } from '#imports';
+import { Database } from '~/utils/db';
 
-export default defineEventHandler(() => {
+export default defineEventHandler(async (event) => {
   try {
+    const { cloudflare } = event.context;
+    const db = new Database(cloudflare.env.DB);
+    console.log(db);
     //あいことばを作成してルームを作成するエンドポイント
     // 生成時に使う文字の種類
     const charactors = '1234567890';
@@ -19,33 +21,20 @@ export default defineEventHandler(() => {
       throw createError({ statusCode: 400, message: 'Watchword is required' });
     }
 
+    // await db.init();
+
     // データベースに保存
     // const stmt = db.prepare("INSERT INTO watchwords (watchword) VALUES (?)");
     // stmt.run(watchword);
-    const stmt = db.prepare(`
-      INSERT INTO watchwords (watchword,status, player1, player2) 
-      VALUES (?, ? , ?, ?)
-    `);
-    stmt.run(watchword, 'watting', 0, 0);
-
-    const stmt1 = db.prepare(`
-      INSERT INTO statusData (watchword,status) 
-      VALUES (?, ?)
-    `);
-    stmt1.run(watchword, 'watting');
-
-    const stmt2 = db.prepare(`
-      INSERT INTO statusManage (watchword, player1, player2) 
-      VALUES (?, ?,?)
-    `);
-    stmt2.run(watchword, 0, 0);
-
-    const stmt3 = db.prepare(`
-      INSERT INTO codeManagement (watchword, player1, player2) 
-      VALUES (?, ?,?)
-    `);
-    stmt3.run(watchword, 'NULL', 'NULL');
-
+    // データベースに保存 (各INSERTをawaitで実行)
+    await db.insertWatchwords(watchword, 'waiting', 0, 0);
+    console.log(`insertWatchwords`);
+    await db.insertStatusData(watchword, 'waiting');
+    console.log(`insertStatusData`);
+    await db.insertStatusManage(watchword, 0, 0);
+    console.log(`insertStatusManage`);
+    await db.insertCodeManagement(watchword, 'NULL', 'NULL');
+    console.log(`insertCodeManagemen`);
     return {
       id: 'player1',
       watchword: watchword,

@@ -1,3 +1,5 @@
+import { Database } from '~/utils/db';
+
 interface Answer {
   input: string;
   expected_output: string;
@@ -10,6 +12,8 @@ interface Answers {
 
 export default defineEventHandler(async (event) => {
   try {
+    const { cloudflare } = event.context;
+    const db = new Database(cloudflare.env.DB);
     const body = await readBody<Answers>(event);
 
     if (!body.code || !body.answer) {
@@ -17,11 +21,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // データベースに保存（JSONシリアライズ）
-    const stmt = db.prepare(`
-      INSERT INTO CodeAnswers (code, answer) 
-      VALUES (?, ?)
-    `);
-    stmt.run(body.code, JSON.stringify(body.answer));
+    await db.insertCodeAnswer(body.code, JSON.stringify(body.answer));
 
     return { success: true };
   } catch (error) {

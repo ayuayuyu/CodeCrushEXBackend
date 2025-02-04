@@ -1,3 +1,3 @@
-export default defineEventHandler((event) => {
-  return "<h1>CodeCrushEXBackend</h1>";
+export default defineEventHandler(async (event) => {
+  return '<h1>CodeCrushEXBackend</h1>';
 });

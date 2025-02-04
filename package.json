@@ -7,12 +7,13 @@
     "preview": "node .output/server/index.mjs"
   },
   "devDependencies": {
-    "@types/better-sqlite3": "^7.6.12",
+    "@cloudflare/workers-types": "^4.20250129.0",
+    "nitro-cloudflare-dev": "^0.2.1",
     "nitropack": "latest",
-    "prettier": "^3.4.2"
+    "prettier": "^3.4.2",
+    "wrangler": "^3.107.2"
   },
   "dependencies": {
-    "better-sqlite3": "^11.8.1",
     "destr": "^2.0.3",
     "diff-match-patch-ts": "^0.6.0",
     "nanoid": "^5.0.9",
