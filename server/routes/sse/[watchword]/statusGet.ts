@@ -1,4 +1,4 @@
-import { statusDataEvents } from '~/utils/updateStatus';
+import { statusDataEvents, statusSendManager } from '~/utils/updateStatus';
 
 export default defineEventHandler(async (event) => {
   const eventStream = createEventStream(event);
@@ -7,14 +7,18 @@ export default defineEventHandler(async (event) => {
   if (!watchword) {
     throw createError({ statusCode: 400, message: 'Watchword is required' });
   }
-  // `sharedData.status` の変更を監視
-  statusDataEvents.on(watchword, async (newStatus) => {
-    console.log('SSE Status');
-    await eventStream.push(newStatus);
-  });
+
+  const interval = setInterval(async () => {
+    if (statusData[watchword] !== 'read') return;
+    if (statusSendManager[watchword] === 'read') return;
+
+    statusSendManager[watchword] = 'read';
+    await eventStream.push(statusData[watchword]);
+  }, 1000);
 
   // クライアントが接続を閉じたときの処理
   eventStream.onClosed(async () => {
+    clearInterval(interval);
     await eventStream.close();
   });
 

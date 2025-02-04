@@ -1,5 +1,3 @@
-// import { EventEmitter } from 'events';
-import { EventEmitter } from 'node:events';
 import { Database } from './db';
 
 // watchword ごとに status を管理するデータ構造
@@ -9,8 +7,7 @@ interface statusWatchword {
 // watchword ごとに status を管理するデータ構造
 export const statusData: statusWatchword = {};
 
-// 変更を通知するための EventEmitter インスタンスを作成
-export const statusDataEvents = new EventEmitter();
+export const statusSendManager: Record<string, string> = {};
 
 // `sharedData` を更新する関数
 export const updateStatus = async (watchword: string, status: string, statusNumber: number, event) => {
@@ -21,7 +18,6 @@ export const updateStatus = async (watchword: string, status: string, statusNumb
   await db.updateStatusData(watchword, status);
   await db.updateStatusManage(watchword, statusNumber, 'player1');
   await db.updateStatusManage(watchword, statusNumber, 'player2');
-  statusDataEvents.emit(watchword, status); // watchword ごとに変更を通知
 };
 
 //データベースからステータスデータをロードして `statusData` に復元
