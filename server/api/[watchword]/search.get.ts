@@ -18,6 +18,9 @@ export default defineEventHandler(async (event) => {
     // Watchword を検索
     const search = findWatchword(watchwords, watchword);
 
+    if (search) {
+      return { player: 'player2', watchword: search };
+    }
     return { watchword: search };
   } catch (error) {
     // エラー処理
