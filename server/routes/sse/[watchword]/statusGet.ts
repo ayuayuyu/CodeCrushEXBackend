@@ -9,6 +9,7 @@ export default defineEventHandler(async (event) => {
   }
   // `sharedData.status` の変更を監視
   statusDataEvents.on(watchword, async (newStatus) => {
+    console.log('SSE Status');
     await eventStream.push(newStatus);
   });
 

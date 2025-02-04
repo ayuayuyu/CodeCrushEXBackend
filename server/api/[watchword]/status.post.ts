@@ -32,7 +32,7 @@ export default defineEventHandler(async (event) => {
       statusManagement[watchword]['player2'] !== undefined
     ) {
       console.log(
-        `Player1: ${statusManagement[watchword][1]}, Player2: ${statusManagement[watchword][2]}次のステータスに変更します。`,
+        `Player1: ${statusManagement[watchword]['player1']}, Player2: ${statusManagement[watchword]['player2']}次のステータスに変更します。`,
       );
       const status = getStatus(statusNumber);
       console.log(`getStatus: ${status}`);
