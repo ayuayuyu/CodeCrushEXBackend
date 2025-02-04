@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, message: 'id is required' });
   }
 
-  const interval = setTimeout(async () => {
+  const interval = setInterval(async () => {
     if (player === 'player1') {
       await eventStream.push(codeManagement[watchword]['player2']); // player1 には player2 のデータを送信
     } else if (player === 'player2') {

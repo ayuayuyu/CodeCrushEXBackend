@@ -10,5 +10,4 @@ export const getCodeChange = async (watchword: string, player1: string, player2:
   codeManagement[watchword]['player2'] = player2;
   await db.updatePlayerCodeManagement(watchword, player1, 'player1');
   await db.updatePlayerCodeManagement(watchword, player2, 'player2');
-  codeManagementEvents.emit(watchword, { player1: player1, player2: player2 });
 };
