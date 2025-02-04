@@ -16,7 +16,7 @@ const statusInfo = [
     status: 'fix',
   },
   {
-    id: 6,
+    id: 5,
     status: 'result',
   },
 ];
