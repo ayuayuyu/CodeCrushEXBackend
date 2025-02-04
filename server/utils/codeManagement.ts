@@ -1,4 +1,5 @@
-import { EventEmitter } from 'events';
+// import { EventEmitter } from 'events';
+import { EventEmitter } from 'node:events';
 interface codeManage {
   [watchword: string]: {
     player1: string;

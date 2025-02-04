@@ -1,4 +1,5 @@
-import { EventEmitter } from 'events';
+// import { EventEmitter } from 'events';
+import { EventEmitter } from 'node:events';
 import { Database } from './db';
 
 // watchword ごとに status を管理するデータ構造
