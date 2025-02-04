@@ -1,4 +1,5 @@
 compatibility_flags = [ "nodejs_compat" ]
+compatibility_date = "2025-02-04"
 
 [[d1_databases]]
 binding = "DB"
