@@ -25,10 +25,10 @@ export default defineEventHandler(async (event) => {
     // const stmt = db.prepare("INSERT INTO watchwords (watchword) VALUES (?)");
     // stmt.run(watchword);
     // データベースに保存 (各INSERTをawaitで実行)
-    // await db.insertWatchwords(watchword, 'waiting', 0, 0);
-    // await db.insertStatusData(watchword, 'waiting');
-    // await db.insertStatusManage(watchword, 0, 0);
-    // await db.insertCodeManagement(watchword, 'NULL', 'NULL');
+    await db.insertWatchwords(watchword, 'waiting', 0, 0);
+    await db.insertStatusData(watchword, 'waiting');
+    await db.insertStatusManage(watchword, 0, 0);
+    await db.insertCodeManagement(watchword, 'NULL', 'NULL');
     return {
       id: 'player1',
       watchword: watchword,
