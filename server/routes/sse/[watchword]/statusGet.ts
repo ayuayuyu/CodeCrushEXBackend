@@ -9,10 +9,17 @@ export default defineEventHandler(async (event) => {
   }
 
   const interval = setInterval(async () => {
-    if (statusData[watchword] !== 'read') return;
-    if (statusSendManager[watchword] === 'read') return;
+    if (
+      statusData[watchword] !== 'explanation' &&
+      statusData[watchword] !== 'read' &&
+      statusData[watchword] !== 'crush' &&
+      statusData[watchword] !== 'fix' &&
+      statusData[watchword] !== 'result'
+    )
+      return;
+    if (statusSendManager[watchword] === statusData[watchword]) return;
 
-    statusSendManager[watchword] = 'read';
+    statusSendManager[watchword] = statusData[watchword];
     await eventStream.push(statusData[watchword]);
   }, 1000);
 
