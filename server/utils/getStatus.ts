@@ -1,22 +1,18 @@
 const statusInfo = [
   {
     id: 1,
-    status: 'explanation',
-  },
-  {
-    id: 2,
     status: 'read',
   },
   {
-    id: 3,
+    id: 2,
     status: 'crush',
   },
   {
-    id: 4,
+    id: 3,
     status: 'fix',
   },
   {
-    id: 5,
+    id: 4,
     status: 'result',
   },
 ];

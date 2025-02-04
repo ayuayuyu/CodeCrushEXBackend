@@ -10,7 +10,6 @@ export default defineEventHandler(async (event) => {
 
   const interval = setInterval(async () => {
     if (
-      statusData[watchword] !== 'explanation' &&
       statusData[watchword] !== 'read' &&
       statusData[watchword] !== 'crush' &&
       statusData[watchword] !== 'fix' &&
