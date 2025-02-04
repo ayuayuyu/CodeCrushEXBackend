@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "build": "nitro build",
-    "dev": "nitro dev",
+    "dev": "PORT=3001 nitro dev",
     "prepare": "nitro prepare",
     "preview": "node .output/server/index.mjs",
     "d1:binding": "wrangler pages --bindings DB=watchword"
