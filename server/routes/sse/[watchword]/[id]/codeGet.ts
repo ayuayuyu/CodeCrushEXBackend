@@ -13,16 +13,17 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, message: 'id is required' });
   }
 
-  codeManagementEvents.on(watchword, async ({ player1, player2 }) => {
+  const interval = setTimeout(async () => {
     if (player === 'player1') {
-      await eventStream.push(player2); // player1 には player2 のデータを送信
+      await eventStream.push(codeManagement[watchword]['player2']); // player1 には player2 のデータを送信
     } else if (player === 'player2') {
-      await eventStream.push(player1); // player2 には player1 のデータを送信
+      await eventStream.push(codeManagement[watchword]['player1']); // player2 には player1 のデータを送信
     }
-  });
+  }, 1000);
 
   // クライアントが接続を閉じたときの処理
   eventStream.onClosed(async () => {
+    clearInterval(interval);
     await eventStream.close();
   });
 

@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, message: 'Watchword is required' });
   }
 
-  const interval = setInterval(async () => {
+  const interval = setTimeout(async () => {
     if (
       statusData[watchword] !== 'explanation' &&
       statusData[watchword] !== 'read' &&
@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
 
   // クライアントが接続を閉じたときの処理
   eventStream.onClosed(async () => {
-    clearInterval(interval);
+    clearTimeout(interval);
     await eventStream.close();
   });
 
