@@ -4,7 +4,7 @@ import diffCode from '~/utils/diffCode';
 import { db } from '~/utils/db';
 
 const oldCode =
-  '#include <stdio.h>\nint main() {// メッセージを出力printf("Hello, World!\\n");\n return 0;\n}';
+  '#include <stdio.h>\nint main() {// メッセージを出力 \n printf("Hello, World!dgfdfgsdadgda\\n");\n return 0;\n}';
 
 // 変更したコードを受け取って交換するエンドポイント(newCodeを受け取る)
 
@@ -14,7 +14,6 @@ export default defineEventHandler(async (event) => {
     const body = await readBody<{ player: string; code: string }>(event);
     const player = body.player;
     const code = body.code;
-    console.log(`codeはこれだよ!: ${code}`);
 
     if (!body || typeof player !== 'string' || typeof code !== 'string') {
       throw createError({ statusCode: 400, statusMessage: 'Invalid request body' });
@@ -32,15 +31,12 @@ export default defineEventHandler(async (event) => {
       codeManagement[watchword]['player1'] !== undefined &&
       codeManagement[watchword]['player2'] !== undefined
     ) {
-      console.log(
-        `Player1: ${codeManagement[watchword]['player1']}, Player2: ${codeManagement[watchword]['player2']}次のステータスに変更します。`,
-      );
       const player1 = diffCode(oldCode, codeManagement[watchword]['player1']);
       const player2 = diffCode(oldCode, codeManagement[watchword]['player2']);
-      console.log(`player1: ${player1}`);
-      console.log(`player2: ${player2}`);
+      // console.log(`\n ---------------------\n player1: ${player1} \n ---------------------\n`);
+      // console.log(`player2: ${player2} \n ---------------------\n`);
       //これをreturn { diff: changeCode };で送るようなsse通信のやつを書く
-      getCodeChange(watchword, player1, player2, event);
+      getCodeChange(watchword, player1, player2);
     }
 
     //それぞれプレイヤーから受け取ったら差分を出したコードをsse通信で送る

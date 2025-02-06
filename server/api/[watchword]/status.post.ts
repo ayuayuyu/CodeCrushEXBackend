@@ -85,15 +85,10 @@ export default defineEventHandler(async (event) => {
       statusManagement[watchword]['player1'] !== undefined &&
       statusManagement[watchword]['player2'] !== undefined
     ) {
-      console.log(
-        `Player1: ${statusManagement[watchword][1]}, Player2: ${statusManagement[watchword][2]}次のステータスに変更します。`,
-      );
       const status = getStatus(statusNumber);
       console.log(`getStatus: ${status}`);
       //ステータスの更新
-      // updateStatus(watchword, status, statusNumber);
       updateStatus(watchword, status, statusNumber);
-      console.log(`updateStatusの実行`);
 
       // 必要に応じてレスポンスを返す
       return { message: "Both players' statuses received", gameStatus: statusManagement[watchword] };
