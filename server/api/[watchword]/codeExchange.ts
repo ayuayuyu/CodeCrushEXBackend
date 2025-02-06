@@ -1,7 +1,7 @@
 import { codeManagement } from '~/utils/codeManagement';
 import { getCodeChange } from '~/utils/getCodeChange';
 import diffCode from '~/utils/diffCode';
-import { Database } from '~/utils/db';
+import { db } from '~/utils/db';
 
 const oldCode =
   '#include <stdio.h>\nint main() {// メッセージを出力printf("Hello, World!\\n");\n return 0;\n}';
@@ -10,8 +10,6 @@ const oldCode =
 
 export default defineEventHandler(async (event) => {
   try {
-    const { cloudflare } = event.context;
-    const db = new Database(cloudflare.env.DB);
     const watchword = getRouterParam(event, 'watchword');
     const body = await readBody<{ player: string; code: string }>(event);
     const player = body.player;
@@ -28,7 +26,7 @@ export default defineEventHandler(async (event) => {
 
     codeManagement[watchword][player] = code;
 
-    await db.updatePlayerCodeManagement(watchword, code, player);
+    db.prepare(`UPDATE codeManagement SET ${player} = ? WHERE watchword = ?`).run(code, watchword);
 
     if (
       codeManagement[watchword]['player1'] !== undefined &&

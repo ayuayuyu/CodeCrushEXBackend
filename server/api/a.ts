@@ -30,16 +30,16 @@
 
 //   return results; // `Response.json(results)` ではなく、直接 `results` を返す
 // });
-import { Database } from '~/utils/db';
+// import { Database } from '~/utils/db';
 
-export default defineEventHandler(async (event) => {
-  const { cloudflare } = event.context;
-  const db = new Database(cloudflare.env.DB);
+// export default defineEventHandler(async (event) => {
+//   const { cloudflare } = event.context;
+//   const db = new Database(cloudflare.env.DB);
 
-  await db.init();
-  await db.insertCodeAnswer('A', 'a');
-  const results = await db.getCodeAnswers();
+//   await db.init();
+//   await db.insertCodeAnswer('A', 'a');
+//   const results = await db.getCodeAnswers();
 
-  console.log(results);
-  return results;
-});
+//   console.log(results);
+//   return results;
+// });
