@@ -4,13 +4,24 @@ import { Database } from './db';
 interface statusWatchword {
   [watchword: string]: string; // watchword をキーとして status を文字列で管理
 }
+interface statasChecks {
+  [watchword: string]: {
+    player1: string;
+    player2: string;
+  };
+}
 // watchword ごとに status を管理するデータ構造
 export const statusData: statusWatchword = {};
 
 export const statusSendManager: Record<string, string> = {};
 
+export const statusCheck: statasChecks = {};
+
 // `sharedData` を更新する関数
 export const updateStatus = async (watchword: string, status: string, statusNumber: number, event) => {
+  if (!statusCheck[watchword]) {
+    statusCheck[watchword] = { player1: '', player2: '' };
+  }
   const { cloudflare } = event.context;
   const db = new Database(cloudflare.env.DB);
   statusData[watchword] = status;
