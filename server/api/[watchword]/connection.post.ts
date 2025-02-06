@@ -25,9 +25,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // プレイヤー情報を更新または挿入
-    console.log(`watchword : ${watchword}`);
     const existing = await db.getWatchword(watchword);
-    console.log(`existing: ${existing}`);
 
     if (existing) {
       // すでに両方のプレイヤーが登録されている場合はエラー
@@ -55,7 +53,6 @@ export default defineEventHandler(async (event) => {
       const status = getStatus(1);
       await db.updateStatusManage(watchword, 1, 'player1');
       await db.updateStatusManage(watchword, 1, 'player2');
-      console.log(`getStatus: ${status}`);
       //ステータスの更新
       updateStatus(watchword, status, 1, event);
     }
