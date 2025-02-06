@@ -1,6 +1,10 @@
 compatibility_flags = [ "nodejs_compat" ]
 compatibility_date = "2025-02-04"
 
+[[migrations]]
+tag = "v1"
+new_classes = ["SSEManager"]
+
 [[d1_databases]]
 binding = "DB"
 database_name = "watchword"
