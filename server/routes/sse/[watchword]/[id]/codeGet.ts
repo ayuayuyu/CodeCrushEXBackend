@@ -56,8 +56,10 @@ export default defineEventHandler(async (event) => {
 
   codeManagementEvents.on(watchword, async ({ player1, player2 }) => {
     if (player === 'player1') {
+      console.log('player1きたよ');
       await eventStream.push(JSON.stringify(player2)); // player1 には player2 のデータを送信
     } else if (player === 'player2') {
+      console.log('player2きたよ');
       await eventStream.push(JSON.stringify(player1)); // player2 には player1 のデータを送信
     }
   });
