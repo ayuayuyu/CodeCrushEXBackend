@@ -5,7 +5,7 @@ const statusInfo = [
   },
   {
     id: 2,
-    status: 'crush',
+    status: 'delete',
   },
   {
     id: 3,
@@ -13,7 +13,7 @@ const statusInfo = [
   },
   {
     id: 4,
-    status: 'result',
+    status: 'answer',
   },
 ];
 // player1 と player2どちらともから次への送信が来たらステータスを変更する
