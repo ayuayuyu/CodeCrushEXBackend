@@ -3,7 +3,8 @@ import { getCodeChange } from '~/utils/getCodeChange';
 import diffCode from '~/utils/diffCode';
 import { db } from '~/utils/db';
 
-const oldCode = `#include <stdio.h> 
+const oldCode = `
+#include <stdio.h> 
 int my_sum(int* ,int); 
 int main(){ 
 	int ary[5] = {1,2,3,4,5};
@@ -14,7 +15,7 @@ int main(){
 		printf("%d ",ary[i]);
 	}
 	printf("\\n");
-	printf("sum = %d\n",sum);	
+	printf("sum = %d\\n",sum);	
 	return 0;
 }
 int my_sum(int* ary,int size){
