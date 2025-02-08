@@ -14,8 +14,8 @@ sum = my_sum(ary,sizeof(ary) / sizeof(int));
 for(i=0;i<5;i++){
 printf("%d ",ary[i]);
 }
-printf("\\n");
-printf("sum = %d\\n",sum);	
+printf("\n");
+printf("sum = %d\n",sum);	
 return 0;
 }
 int my_sum(int* ary,int size){
