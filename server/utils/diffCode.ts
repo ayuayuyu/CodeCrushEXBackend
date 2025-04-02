@@ -11,10 +11,9 @@ export default function diffCode(oldCode: string, newCode: string) {
     const [operation, text] = diff[i];
 
     if (operation === -1) {
-      // 削除された部分に `//del` を追加するが、削除内容は表示しない
+      // 削除された部分に //delを追加するが、削除内容は表示しない
       modifiedCode += '/*del*/';
     } else {
-      // 追加またはそのままの部分は維持
       modifiedCode += text;
     }
   }
